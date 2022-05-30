@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AuthServer.Data\AuthServer.Data.csproj" />
+    <ProjectReference Include="..\AuthServer.Data\AuthService.Data.csproj" />
   </ItemGroup>
 
 </Project>

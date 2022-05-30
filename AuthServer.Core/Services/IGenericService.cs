@@ -12,9 +12,10 @@ namespace AuthServer.Core.Services
     {
         Task<Response<IQueryable<TDto>>> GetAllAsync();
         Task<Response<TDto>> GetByIdAsync(int Id);
-        Task<Response<IQueryable<TDto>>> Where(Expression<Func<T, bool>> expression);
-        Task<Response<TDto>> AddAsync(T Entity);
-        Task<NoContentDto> Update(T Entity);
-        Task<NoContentDto> Remove(T Entity);
+        Task<Response<IQueryable<TDto>>> Where(Expression<Func<T, bool>> predicate);
+        Task<Response<TDto>> AddAsync(TDto Entity);
+        Task<Response<NoContentDto>> Update(TDto Entity, int Id);
+        Task<Response<NoContentDto>> Remove(int Id);
+       
     }
 }
