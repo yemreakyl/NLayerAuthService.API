@@ -1,0 +1,15 @@
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\bin\Debug\net5.0\AuthServer.Core.deps.json
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\bin\Debug\net5.0\AuthServer.Core.dll
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\bin\Debug\net5.0\ref\AuthServer.Core.dll
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\bin\Debug\net5.0\AuthServer.Core.pdb
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\obj\Debug\net5.0\AuthServer.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\obj\Debug\net5.0\AuthServer.Core.AssemblyInfoInputs.cache
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\obj\Debug\net5.0\AuthServer.Core.AssemblyInfo.cs
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\obj\Debug\net5.0\AuthServer.Core.csproj.CoreCompileInputs.cache
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\obj\Debug\net5.0\AuthServer.Core.dll
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\obj\Debug\net5.0\ref\AuthServer.Core.dll
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\obj\Debug\net5.0\AuthServer.Core.pdb
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\obj\Debug\net5.0\AuthServer.Core.csproj.AssemblyReference.cache
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\bin\Debug\net5.0\SharedLibrary.dll
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\bin\Debug\net5.0\SharedLibrary.pdb
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\AuthServer.Core\obj\Debug\net5.0\AuthServer.Core.csproj.CopyComplete
