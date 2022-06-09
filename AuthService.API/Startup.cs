@@ -1,12 +1,24 @@
 using AuthServer.Core.Configurations;
+using AuthServer.Core.IUnitOfWork;
+using AuthServer.Core.Models;
+using AuthServer.Core.Repositories;
+using AuthServer.Core.Services;
+using AuthServer.Data;
+using AuthServer.Data.Repositories;
+using AuthServer.Data.UnitOfWork;
+using AuthServer.Service.Services;
+using AuthService.Service.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using SharedLibrary.Configurations;
 using System;
@@ -25,10 +37,36 @@ namespace AuthService.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+       
         public void ConfigureServices(IServiceCollection services)
         {
-            //Bu configurasyonla birlikte appsettingjson içerisinde yer alan token bilgilerimi alýp oluþturmuþ olduðum customtokenoption classýma geçtim
+            //Dependecy injection iþlemleri için
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));//Generic interfaceler için bu þekilde(typeof) yazýyorum
+            services.AddScoped(typeof(IGenericService<,>),typeof(GenericServices<,>));
+
+            //DbContext
+            services.AddDbContext<AppDbContext>(opt =>
+            {
+                opt.UseSqlServer(Configuration.GetConnectionString("SqlServer"));
+
+            });
+
+            //Burda Identity mi ve identity içerisinde ki optionslarýmý tanýmlýyorum
+            services.AddIdentity<UserApp, IdentityRole>(opt =>
+            {
+                opt.User.RequireUniqueEmail = true;
+                opt.Password.RequireNonAlphanumeric = true;
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();//þifre sýfýrlama gibi iþlemler için
+            //identity e hangi orm aracýný kullandýðýmý belirttim    
+
+
+
+
+            //Bu configurasyonla birlikte appsettingjson içerisinde yer alan options larýmý alýp oluþturmuþ olduðum  classlarýma geçtim
             services.Configure<CustomTokenOption>(Configuration.GetSection("TokenOptions"));
             services.Configure<List<Client>>(Configuration.GetSection("Client"));
             services.AddControllers();
