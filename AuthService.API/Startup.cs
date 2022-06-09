@@ -1,3 +1,4 @@
+using AuthServer.Core.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,7 +30,7 @@ namespace AuthService.API
         {
             //Bu configurasyonla birlikte appsettingjson içerisinde yer alan token bilgilerimi alýp oluþturmuþ olduðum customtokenoption classýma geçtim
             services.Configure<CustomTokenOption>(Configuration.GetSection("TokenOptions"));
-
+            services.Configure<List<Client>>(Configuration.GetSection("Client"));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

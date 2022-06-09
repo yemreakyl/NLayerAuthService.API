@@ -61,7 +61,7 @@ namespace AuthService.Service.Services
             var Claims = new List<Claim>()
             {
                 new Claim(JwtRegisteredClaimNames.Sub,client.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),//Token a özel bir uniq değer
             };
             Claims.AddRange(client.Audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
             return Claims;
@@ -69,7 +69,26 @@ namespace AuthService.Service.Services
         
         public ClientTokenDto CreateClientToken(Client client)
         {
-            throw new NotImplementedException();
+            var accessTokenİnspiration = DateTime.Now.AddMinutes(_tokenoption.AccessTokenİnspiration);//Token options tan adlığım geçerlilik süresini oluştuğu ana ekleyerek son geçerlilik süresini belirtiyorum
+            var securityKey = SignService.GetSecurityKey(_tokenoption.SecurityKey);//sign service classımda oluşturduğum security keyi aldım
+            SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.Aes128KW);//İmzayla şifrelemeyi yapan class
+
+            JwtSecurityToken JwtSecurityToken = new JwtSecurityToken(
+                issuer: _tokenoption.Issuer,
+                expires: accessTokenİnspiration,
+                notBefore: DateTime.Now,
+                claims: GetClaimsforclients(client),
+                signingCredentials: signingCredentials
+                  );
+
+            var TokenHandler = new JwtSecurityTokenHandler();//Asıl tokenı yazan class bu yukarıdaki JwtSecurityTokenı parametre olarak alıyor ve token ı yazıyor
+            var Token = TokenHandler.WriteToken(JwtSecurityToken);
+            var TokenDto = new ClientTokenDto()
+            {
+                AccessToken = Token,
+                AccessTokenExpiration = accessTokenİnspiration,
+            };
+            return TokenDto;
         }
 
         public TokenDto CreateToken(UserApp userApp)
