@@ -7,24 +7,19 @@ using AuthServer.Data;
 using AuthServer.Data.Repositories;
 using AuthServer.Data.UnitOfWork;
 using AuthServer.Service.Services;
+using AuthService.Service;
 using AuthService.Service.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using SharedLibrary.Configurations;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AuthService.API
 {
@@ -37,7 +32,7 @@ namespace AuthService.API
 
         public IConfiguration Configuration { get; }
 
-       
+
         public void ConfigureServices(IServiceCollection services)
         {
             //Dependecy injection iþlemleri için
@@ -46,7 +41,7 @@ namespace AuthService.API
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));//Generic interfaceler için bu þekilde(typeof) yazýyorum
-            services.AddScoped(typeof(IGenericService<,>),typeof(GenericServices<,>));
+            services.AddScoped(typeof(IGenericService<,>), typeof(GenericServices<,>));
 
             //DbContext
             services.AddDbContext<AppDbContext>(opt =>
@@ -69,13 +64,54 @@ namespace AuthService.API
             //Bu configurasyonla birlikte appsettingjson içerisinde yer alan options larýmý alýp oluþturmuþ olduðum  classlarýma geçtim
             services.Configure<CustomTokenOption>(Configuration.GetSection("TokenOptions"));
             services.Configure<List<Client>>(Configuration.GetSection("Client"));
+
+            //Bu kýsýmda authentication ile alakalý iþlemlerimi gerçekleþtiriyorum
+            services.AddAuthentication(options =>
+            {
+                //Benden bir þema istiyor ve Jwt default þemayý veriyorum
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                //Burda ise altta jwt den gelen þema ile üstte authentication dan gelen þemayý birbirine baðlýyorum
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+
+                //jwt doðrulama yapacaðýný belirttim(AddJwtBearer ile) bu þekilde endpointlere request geldiðinde direk header kýsmýnda token arayacak.
+            }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opt =>
+
+            {
+                //Token bilgilerini kullanmak için app.setting.json dan alýp bir nesne örneði oluþturdum
+                var tokenOption = Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
+                //Gelen token üzerinde yapacaðým validation iþlemleri
+                opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                {
+                    //burda hangi alanlarýn doðrualama iþlemine tutulacaðýný gösterdim
+                    ValidateIssuerSigningKey = true,
+                    ValidateAudience = true,
+                    ValidateIssuer = true,
+                    ValidateLifetime = true,
+
+                    //Burda ise doðrulama için gerekli deðerleri gönderdim
+                    ValidIssuer = tokenOption.Issuer,
+                    ValidAudience = tokenOption.Audiences[0],
+                    IssuerSigningKey = SignService.GetSecurityKey(tokenOption.SecurityKey),
+
+
+
+                };
+
+            });
+
+
+
+
+
+
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthService.API", Version = "v1" });
             });
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -89,6 +125,7 @@ namespace AuthService.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseAuthentication();//Authorization öncesine authentication ekliyorum.Burda sýralama önemli
 
             app.UseAuthorization();
 

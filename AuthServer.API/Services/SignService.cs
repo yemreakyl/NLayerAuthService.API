@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AuthService.Service
 {
-    static class SignService
+    public static class SignService
     {
         //Bu classın amacı üreteceğimiz token larımızı asimetrik yöntemle imzalamak
         public static SecurityKey GetSecurityKey(string securityKey)
