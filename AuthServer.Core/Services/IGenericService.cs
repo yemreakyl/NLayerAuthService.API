@@ -10,12 +10,13 @@ namespace AuthServer.Core.Services
 {
     public interface IGenericService<T,TDto> where T : class where TDto : class
     {
-        Task<Response<IQueryable<TDto>>> GetAllAsync();
+        Task<Response<IEnumerable<TDto>>> GetAllAsync();
         Task<Response<TDto>> GetByIdAsync(int Id);
         Task<Response<IQueryable<TDto>>> Where(Expression<Func<T, bool>> predicate);
         Task<Response<TDto>> AddAsync(TDto Entity);
         Task<Response<NoContentDto>> Update(TDto Entity, int Id);
         Task<Response<NoContentDto>> Remove(int Id);
-       
+     
+
     }
 }

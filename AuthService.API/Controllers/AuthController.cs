@@ -17,7 +17,7 @@ namespace AuthService.API.Controllers
         {
             _authenticationService = authenticationService;
         }
-        [HttpPost]
+        [HttpPost]  
         public async Task<IActionResult> CreateToken(LoginDto loginDto)
         {
             var Result=await _authenticationService.CreateTokenAsync(loginDto);

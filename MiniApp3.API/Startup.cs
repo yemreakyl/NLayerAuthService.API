@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SharedLibrary.Configurations;
+using SharedLibrary.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,12 @@ namespace MiniApp3.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CustomTokenOption>(Configuration.GetSection("TokenOption"));
+
+
+            //Bu kýsýmda authentication ile alakalý iþlemlerimi gerçekleþtiriyorum
+            var TokenOptions = Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
+            services.AddCustomtokenAuth(TokenOptions);//shared library de oluþturduðum static methot
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -47,7 +55,7 @@ namespace MiniApp3.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();//Authorization öncesine authentication ekliyorum.Burda sýralama önemli
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

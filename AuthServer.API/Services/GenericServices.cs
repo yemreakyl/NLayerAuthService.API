@@ -32,11 +32,11 @@ namespace AuthServer.Service.Services
             return Response<TDto>.Success(200, returnEntity);
         }
 
-        public async Task<Response<IQueryable<TDto>>> GetAllAsync()
+        public async Task<Response<IEnumerable<TDto>>> GetAllAsync()
         {
        
-            var DtoEntities=ObjectMapper.Mapper.Map<IQueryable<TDto>>(_repo.GetAllAsync().ToListAsync());
-            return  Response<IQueryable<TDto>>.Success(200, DtoEntities);
+            var DtoEntities=ObjectMapper.Mapper.Map<List<TDto>>(await _repo.GetAllAsync());
+            return  Response<IEnumerable<TDto>>.Success(200, DtoEntities);
 
         }
         
@@ -67,13 +67,19 @@ namespace AuthServer.Service.Services
 
         public async Task<Response<NoContentDto>>Update(TDto Entity,int Id)
         {
-            var entityisexist = await _repo.GetByIdAsync(Id);
-            if (entityisexist==null)
+            var isExistEntity = await _repo.GetByIdAsync(Id);
+
+            if (isExistEntity == null)
             {
-                return Response<NoContentDto>.Fail(404, "Id not found", true);
+                return Response<NoContentDto>.Fail(404,"Id not found", true);
             }
-            _repo.Update(entityisexist);
+
+            var updateEntity = ObjectMapper.Mapper.Map<T>(Entity);
+
+            _repo.Update(updateEntity);
+
             await _unitOfWork.SaveChangesAsync();
+            //204 durum kodu =>  No Content  => Response body'sinde hiç bir data  olmayacak.
             return Response<NoContentDto>.Success(204);
         }
 

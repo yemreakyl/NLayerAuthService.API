@@ -19,6 +19,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SharedLibrary.Configurations;
+using SharedLibrary.Extensions;
+using SharedLibrary.Services;
 using System;
 using System.Collections.Generic;
 
@@ -61,44 +63,14 @@ namespace AuthService.API
                 opt.Password.RequireNonAlphanumeric = false;
             }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();//þifre sýfýrlama gibi iþlemler için
                                                                                    //identity e hangi orm aracýný kullandýðýmý belirttim    
-
-
-
-
             //Bu configurasyonla birlikte appsettingjson içerisinde yer alan options larýmý alýp oluþturmuþ olduðum  classlarýma geçtim
             services.Configure<CustomTokenOption>(Configuration.GetSection("TokenOption"));
             services.Configure<List<Client>>(Configuration.GetSection("Clients"));
 
             //Bu kýsýmda authentication ile alakalý iþlemlerimi gerçekleþtiriyorum
-            services.AddAuthentication(options =>
-            {
-                //Benden bir þema istiyor ve Jwt default þemayý veriyorum
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                //Burda ise altta jwt den gelen þema ile üstte authentication dan gelen þemayý birbirine baðlýyorum
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            var TokenOptions = Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
+            services.AddCustomtokenAuth(TokenOptions);//shared library de oluþturduðum static methot
 
-                //jwt doðrulama yapacaðýný belirttim(AddJwtBearer ile) bu þekilde endpointlere request geldiðinde direk header kýsmýnda token arayacak.
-            }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opt =>
-            {
-                //Token bilgilerini kullanmak için app.setting.json dan alýp bir nesne örneði oluþturdum
-                var tokenOptions = Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
-                //Gelen token üzerinde yapacaðým validation iþlemleri
-                opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
-                {
-                    //Burda ise doðrulama için gerekli deðerleri gönderdim
-                    ValidIssuer = tokenOptions.Issuer,
-                    ValidAudience = tokenOptions.Audience[0],
-                    IssuerSigningKey = SignService.GetSecurityKey(tokenOptions.SecurityKey),
-                    //burda hangi alanlarýn doðrualama iþlemine tutulacaðýný gösterdim
-                    ValidateIssuerSigningKey = true,
-                    ValidateAudience = true,
-                    ValidateIssuer = true,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero
-
-                };
-
-            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

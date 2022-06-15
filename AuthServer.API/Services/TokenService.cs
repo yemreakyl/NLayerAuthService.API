@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SharedLibrary.Configurations;
+using SharedLibrary.Services;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -33,7 +34,7 @@ namespace AuthService.Service.Services
         //ürettiiğim token içerisinde göndermek için bir refresh token üretiyorum
         private string CreateRefreshToken()
         {
-            var Bytes = new byte[32];
+            var Bytes = new Byte[32];
             using var rnd = RandomNumberGenerator.Create();
             rnd.GetBytes(Bytes);
             return Convert.ToBase64String(Bytes);
@@ -43,7 +44,7 @@ namespace AuthService.Service.Services
         //*claim* sınıfı payload içerisinde yer alan her bir key value çiftine verilen addır.Yani payload bölümü claim lerden oluşur bu sebeple methodum da claim enumerable dönüyorum
         private IEnumerable<Claim> GetClaimsforusers(UserApp userApp, List<string> audiences)
         {
-            var claims = new List<Claim>()
+            var claims = new List<Claim>
             {
                 //Burda Claimtypes yada JwtRegisteredClaimNames sabit yapıları içerisinde en çok kullanılan ve sistemin tanıdığı key tipleri var, kendim "name" yazmak yerine ClaimTypes.Name gibi sabit yapıları kullanıyorum ki sistem direk name kısmı olduğunu otomatik algılıyor
                 new Claim(ClaimTypes.NameIdentifier,userApp.Id),
@@ -58,12 +59,13 @@ namespace AuthService.Service.Services
         //Bu methodum ise client lar için oluşturacağım tokenlarda kullanacağım claim leri üretecek
         private IEnumerable<Claim> GetClaimsforclients(Client client)
         {
-            var Claims = new List<Claim>()
-            {
-                new Claim(JwtRegisteredClaimNames.Sub,client.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),//Token a özel bir uniq değer
-            };
+            var Claims = new List<Claim>();
             Claims.AddRange(client.Audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
+
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString());
+            new Claim(JwtRegisteredClaimNames.Sub, client.Id.ToString());
+
+            
             return Claims;
         }
         
@@ -93,14 +95,14 @@ namespace AuthService.Service.Services
 
         public TokenDto CreateToken(UserApp userApp)
         {
-            var accessTokenİnspiration = DateTime.Now.AddMinutes(_tokenoption.AccessTokenExpiration);//Token options tan adlığım geçerlilik süresini oluştuğu ana ekleyerek son geçerlilik süresini belirtiyorum
-            var refreshTokenİnspiration = DateTime.Now.AddMinutes(_tokenoption.RefreshTokenExpiration);
+            var accessTokenExpiration = DateTime.Now.AddMinutes(_tokenoption.AccessTokenExpiration);//Token options tan adlığım geçerlilik süresini oluştuğu ana ekleyerek son geçerlilik süresini belirtiyorum
+            var refreshTokenExpiration = DateTime.Now.AddMinutes(_tokenoption.RefreshTokenExpiration);
             var securityKey = SignService.GetSecurityKey(_tokenoption.SecurityKey);//sign service classımda oluşturduğum security keyi aldım
-            SigningCredentials signingCredentials=new SigningCredentials(securityKey,SecurityAlgorithms.Aes128KW);//İmzayla şifrelemeyi yapan class
+            SigningCredentials signingCredentials=new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);//İmzayla şifrelemeyi yapan class
 
             JwtSecurityToken JwtSecurityToken = new JwtSecurityToken(
                 issuer:_tokenoption.Issuer,
-                expires: accessTokenİnspiration, 
+                expires: accessTokenExpiration, 
                 notBefore: DateTime.Now,
                 claims: GetClaimsforusers(userApp,_tokenoption.Audience),
                 signingCredentials:signingCredentials 
@@ -108,12 +110,12 @@ namespace AuthService.Service.Services
 
             var TokenHandler = new JwtSecurityTokenHandler();//Asıl tokenı yazan class bu yukarıdaki JwtSecurityTokenı parametre olarak alıyor ve token ı yazıyor
             var Token=TokenHandler.WriteToken(JwtSecurityToken);
-            var TokenDto = new TokenDto()
+            var TokenDto = new TokenDto
             {
                 AccessToken = Token,
                 RefreshToken = CreateRefreshToken(),
-                AccessTokenExpiration = accessTokenİnspiration,
-                RefreshTokenExpiration = refreshTokenİnspiration
+                AccessTokenExpiration = accessTokenExpiration,
+                RefreshTokenExpiration = refreshTokenExpiration
             };
             return TokenDto;
         }

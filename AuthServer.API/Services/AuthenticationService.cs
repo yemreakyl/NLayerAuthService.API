@@ -57,7 +57,7 @@ namespace AuthService.Service.Services
                 };
             var Token=_tokenService.CreateToken(User);
             var userRefreshToken = await _userRefreshTokenRepo.Where(x => x.UserId == User.Id).SingleOrDefaultAsync();
-            if (userRefreshToken != null)
+            if (userRefreshToken == null)
             {
                 await _userRefreshTokenRepo.AddAsync(new UserRefreshToken() { UserId = User.Id, Code = Token.RefreshToken, Expiration = Token.RefreshTokenExpiration });
             }
@@ -67,7 +67,7 @@ namespace AuthService.Service.Services
                     userRefreshToken.Code = Token.RefreshToken;
                     userRefreshToken.Expiration = Token.RefreshTokenExpiration;
             }
-            _unitOfWork.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
             return Response<TokenDto>.Success(200, Token);
         }
 
