@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "XkaetdjTs/TAAv8eOUeMk11Pk7G1kAKONKsflfKDDcZ7J1UJZze4ZaTbY6LWhGZ+NddtH1Q8DqO1xxmN/jxNtw==",
+  "dgSpecHash": "m6tRb/k7lJDR1f3XGyivhvJcCvyNR03cZZSoZ7O5ZxWm3B3ji5k3F5X8chp2F+RH2rx/Krz3O/JuLvNY/Tu05A==",
   "success": true,
   "projectFilePath": "C:\\Users\\yemre\\OneDrive\\Masaüstü\\C# çalışmalar\\AuthService.API\\AuthService.API\\AuthService.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\yemre\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\yemre\\.nuget\\packages\\fluentvalidation\\9.3.0\\fluentvalidation.9.3.0.nupkg.sha512",
+    "C:\\Users\\yemre\\.nuget\\packages\\fluentvalidation.aspnetcore\\9.3.0\\fluentvalidation.aspnetcore.9.3.0.nupkg.sha512",
+    "C:\\Users\\yemre\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\9.3.0\\fluentvalidation.dependencyinjectionextensions.9.3.0.nupkg.sha512",
     "C:\\Users\\yemre\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\yemre\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.1\\microsoft.aspnetcore.authentication.jwtbearer.5.0.1.nupkg.sha512",
     "C:\\Users\\yemre\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.1\\microsoft.aspnetcore.cryptography.internal.5.0.1.nupkg.sha512",

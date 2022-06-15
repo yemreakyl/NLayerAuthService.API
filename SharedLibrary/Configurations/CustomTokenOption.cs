@@ -9,10 +9,10 @@ namespace SharedLibrary.Configurations
     public class CustomTokenOption
     {
         //Bu classımın amacı ana apı içindeki appsteetinjson da yer alan token bilgilerine karşılık olarak oluşturdum ve o bilgilerle bu classımı haberdar ediyorum
-        public List<string> Audiences { get; set; } // Token la istek yapılabilecek olan apı lar
+        public List<string> Audience { get; set; } // Token la istek yapılabilecek olan apı lar
         public string Issuer { get; set; }//Token ı yayınlayan apı
-        public int AccessTokenİnspiration { get; set; }//Geçerlilik süresi
-        public int RefresTokenİnspiration { get; set; }//Geçerlilik süresi
+        public int AccessTokenExpiration { get; set; }//Geçerlilik süresi
+        public int RefreshTokenExpiration { get; set; }//Geçerlilik süresi
         public string SecurityKey { get; set; }
     }
 }

@@ -69,7 +69,7 @@ namespace AuthService.Service.Services
         
         public ClientTokenDto CreateClientToken(Client client)
         {
-            var accessTokenİnspiration = DateTime.Now.AddMinutes(_tokenoption.AccessTokenİnspiration);//Token options tan adlığım geçerlilik süresini oluştuğu ana ekleyerek son geçerlilik süresini belirtiyorum
+            var accessTokenİnspiration = DateTime.Now.AddMinutes(_tokenoption.AccessTokenExpiration);//Token options tan adlığım geçerlilik süresini oluştuğu ana ekleyerek son geçerlilik süresini belirtiyorum
             var securityKey = SignService.GetSecurityKey(_tokenoption.SecurityKey);//sign service classımda oluşturduğum security keyi aldım
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.Aes128KW);//İmzayla şifrelemeyi yapan class
 
@@ -93,8 +93,8 @@ namespace AuthService.Service.Services
 
         public TokenDto CreateToken(UserApp userApp)
         {
-            var accessTokenİnspiration = DateTime.Now.AddMinutes(_tokenoption.AccessTokenİnspiration);//Token options tan adlığım geçerlilik süresini oluştuğu ana ekleyerek son geçerlilik süresini belirtiyorum
-            var refreshTokenİnspiration = DateTime.Now.AddMinutes(_tokenoption.RefresTokenİnspiration);
+            var accessTokenİnspiration = DateTime.Now.AddMinutes(_tokenoption.AccessTokenExpiration);//Token options tan adlığım geçerlilik süresini oluştuğu ana ekleyerek son geçerlilik süresini belirtiyorum
+            var refreshTokenİnspiration = DateTime.Now.AddMinutes(_tokenoption.RefreshTokenExpiration);
             var securityKey = SignService.GetSecurityKey(_tokenoption.SecurityKey);//sign service classımda oluşturduğum security keyi aldım
             SigningCredentials signingCredentials=new SigningCredentials(securityKey,SecurityAlgorithms.Aes128KW);//İmzayla şifrelemeyi yapan class
 
@@ -102,7 +102,7 @@ namespace AuthService.Service.Services
                 issuer:_tokenoption.Issuer,
                 expires: accessTokenİnspiration, 
                 notBefore: DateTime.Now,
-                claims: GetClaimsforusers(userApp,_tokenoption.Audiences),
+                claims: GetClaimsforusers(userApp,_tokenoption.Audience),
                 signingCredentials:signingCredentials 
                   );
 

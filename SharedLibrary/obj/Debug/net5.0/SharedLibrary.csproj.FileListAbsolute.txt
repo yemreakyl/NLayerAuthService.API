@@ -2,6 +2,7 @@ C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\SharedLibrar
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\SharedLibrary\bin\Debug\net5.0\SharedLibrary.dll
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\SharedLibrary\bin\Debug\net5.0\ref\SharedLibrary.dll
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\SharedLibrary\bin\Debug\net5.0\SharedLibrary.pdb
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\SharedLibrary\obj\Debug\net5.0\SharedLibrary.csproj.AssemblyReference.cache
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\SharedLibrary\obj\Debug\net5.0\SharedLibrary.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\SharedLibrary\obj\Debug\net5.0\SharedLibrary.AssemblyInfoInputs.cache
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\SharedLibrary\obj\Debug\net5.0\SharedLibrary.AssemblyInfo.cs

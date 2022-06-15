@@ -7,10 +7,19 @@ C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\MiniApp1.API.dll
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\ref\MiniApp1.API.dll
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\MiniApp1.API.pdb
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\Microsoft.OpenApi.dll
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\SharedLibrary.dll
+C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\SharedLibrary.pdb
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\obj\Debug\net5.0\MiniApp1.API.csproj.AssemblyReference.cache
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\obj\Debug\net5.0\MiniApp1.API.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\obj\Debug\net5.0\MiniApp1.API.AssemblyInfoInputs.cache
@@ -26,5 +35,3 @@ C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\obj\Debug\net5.0\ref\MiniApp1.API.dll
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\obj\Debug\net5.0\MiniApp1.API.pdb
 C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\obj\Debug\net5.0\MiniApp1.API.genruntimeconfig.cache
-C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\SharedLibrary.dll
-C:\Users\yemre\OneDrive\Masaüstü\C# çalışmalar\AuthService.API\MiniApp1.API\bin\Debug\net5.0\SharedLibrary.pdb
