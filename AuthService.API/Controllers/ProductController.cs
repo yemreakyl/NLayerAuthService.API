@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AuthService.API.Controllers
 {
-    //[Authorize]//Product ile crud işlemleri yapacak olan kullanıcıların yetkili olması gerektiği için authorize attribute ekliyorum
+    [Authorize]//Product ile crud işlemleri yapacak olan kullanıcıların yetkili olması gerektiği için authorize attribute ekliyorum
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : CustomBaseController

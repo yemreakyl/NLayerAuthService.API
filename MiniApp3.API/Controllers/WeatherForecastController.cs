@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -7,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace MiniApp3.API.Controllers
 {
+    [Authorize]//kullanıcıların yetkili olması gerektiği için authorize attribute ekliyorum
     [ApiController]
     [Route("[controller]")]
+    //Sistemden gelen bu default hava tahmin kontrollerı kullanacağım.Bu apı üzerinde ise üyelik sistemi olmayan "client token" kullananan kullanıcıların isteklerini test edeceğim.Çünkü tanımadığım kullancıların apı'ma istek yapmasını engellemek istiyorum
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
