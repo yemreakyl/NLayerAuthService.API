@@ -9,6 +9,7 @@ using AuthServer.Data.UnitOfWork;
 using AuthServer.Service.Services;
 using AuthService.Service;
 using AuthService.Service.Services;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -71,7 +72,11 @@ namespace AuthService.API
             var TokenOptions = Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
             services.AddCustomtokenAuth(TokenOptions);//shared library de oluþturduðum static methot
 
-            services.AddControllers();
+            //Validations ile alaklý kýsýmlarý gerçekleþtirdim
+            services.AddControllers().AddFluentValidation(opt =>
+            {
+                opt.RegisterValidatorsFromAssemblyContaining<Startup>();
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthService.API", Version = "v1" });
